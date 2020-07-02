@@ -3,10 +3,12 @@ package base
 import (
 	"errors"
 	"fmt"
+	"github.com/alibaba/sentinel-golang/core/config"
 	"strconv"
 	"strings"
 
 	"github.com/alibaba/sentinel-golang/util"
+	"github.com/prometheus/client_golang/prometheus"
 )
 
 const metricPartSeparator = "|"
@@ -24,6 +26,68 @@ type MetricItem struct {
 	AvgRt           uint64
 	OccupiedPassQps uint64
 	Concurrency     uint32
+}
+
+var (
+	PromMetricPassQpsItem = prometheus.NewGaugeVec(prometheus.GaugeOpts{
+		Namespace: config.PromMetricNamespace(),
+		Subsystem: config.PromMetricSubsystem(),
+		Name:      config.AppName(),
+		Help:      "the sentinel PassQps stat data of running time",
+	}, []string{"Resource", "Classification", "Timestamp"})
+
+	PromMetricBlockQpsItem = prometheus.NewGaugeVec(prometheus.GaugeOpts{
+		Namespace: config.PromMetricNamespace(),
+		Subsystem: config.PromMetricSubsystem(),
+		Name:      config.AppName(),
+		Help:      "the sentinel BlockQps stat data of running time",
+	}, []string{"Resource", "Classification", "Timestamp"})
+
+	PromMetricCompleteQpsItem = prometheus.NewGaugeVec(prometheus.GaugeOpts{
+		Namespace: config.PromMetricNamespace(),
+		Subsystem: config.PromMetricSubsystem(),
+		Name:      config.AppName(),
+		Help:      "the sentinel CompleteQps stat data of running time",
+	}, []string{"Resource", "Classification", "Timestamp"})
+
+	PromMetricErrorQpsItem = prometheus.NewGaugeVec(prometheus.GaugeOpts{
+		Namespace: config.PromMetricNamespace(),
+		Subsystem: config.PromMetricSubsystem(),
+		Name:      config.AppName(),
+		Help:      "the sentinel ErrorQps stat data of running time",
+	}, []string{"Resource", "Classification", "Timestamp"})
+
+
+	PromMetricAvgRtItem = prometheus.NewGaugeVec(prometheus.GaugeOpts{
+		Namespace: config.PromMetricNamespace(),
+		Subsystem: config.PromMetricSubsystem(),
+		Name:      config.AppName(),
+		Help:      "the sentinel AvgRt stat data of running time",
+	}, []string{"Resource", "Classification", "Timestamp"})
+
+	PromMetricOccupiedPassQpsItem = prometheus.NewGaugeVec(prometheus.GaugeOpts{
+		Namespace: config.PromMetricNamespace(),
+		Subsystem: config.PromMetricSubsystem(),
+		Name:      config.AppName(),
+		Help:      "the sentinel OccupiedPassQps stat data of running time",
+	}, []string{"Resource", "Classification", "Timestamp"})
+
+	PromMetricConcurrencyItem = prometheus.NewGaugeVec(prometheus.GaugeOpts{
+		Namespace: config.PromMetricNamespace(),
+		Subsystem: config.PromMetricSubsystem(),
+		Name:      config.AppName(),
+		Help:      "the sentinel Concurrency stat data of running time",
+	}, []string{"Resource", "Classification", "Timestamp"})
+)
+
+func init() {
+	prometheus.MustRegister(PromMetricPassQpsItem)
+	prometheus.MustRegister(PromMetricBlockQpsItem)
+	prometheus.MustRegister(PromMetricCompleteQpsItem)
+	prometheus.MustRegister(PromMetricAvgRtItem)
+	prometheus.MustRegister(PromMetricOccupiedPassQpsItem)
+	prometheus.MustRegister(PromMetricErrorQpsItem)
+	prometheus.MustRegister(PromMetricConcurrencyItem)
 }
 
 type MetricItemRetriever interface {

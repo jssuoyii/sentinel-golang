@@ -12,6 +12,7 @@ require (
 	github.com/google/uuid v1.1.1
 	github.com/labstack/echo/v4 v4.1.15
 	github.com/pkg/errors v0.8.1
+	github.com/prometheus/client_golang v1.1.0
 	github.com/shirou/gopsutil v2.19.12+incompatible
 	github.com/stretchr/testify v1.4.0
 	go.uber.org/multierr v1.5.0

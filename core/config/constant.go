@@ -18,4 +18,7 @@ const (
 	DefaultMetricLogSingleFileMaxSize  uint64 = 1024 * 1024 * 50
 	DefaultMetricLogMaxFileAmount      uint32 = 8
 	DefaultSystemStatCollectIntervalMs uint32 = 1000
+
+	DefaultPromNamespace = "Sentinel_Namespace"
+	DefaultPromSubsystem = "Sentinel_Subsystem"
 )

@@ -35,6 +35,14 @@ type LogConfig struct {
 	UsePid bool `yaml:"usePid"`
 	// Metric represents the configuration items of the metric log.
 	Metric MetricLogConfig
+	// PrometheusMetric base config.
+	PrometheusMetric PrometheusMetricConfig
+}
+
+// PrometheusMetric base config
+type PrometheusMetricConfig struct {
+	Namespace string `yaml:"namespace"`
+	Subsystem string `yaml:"subsystem"`
 }
 
 // MetricLogConfig represents the configuration items of the metric log.
@@ -74,6 +82,10 @@ func NewDefaultConfig() *Entity {
 					SingleFileMaxSize: DefaultMetricLogSingleFileMaxSize,
 					MaxFileCount:      DefaultMetricLogMaxFileAmount,
 					FlushIntervalSec:  DefaultMetricLogFlushIntervalSec,
+				},
+				PrometheusMetric: PrometheusMetricConfig{
+					Namespace: DefaultPromNamespace,
+					Subsystem: DefaultPromSubsystem,
 				},
 			},
 			Stat: StatConfig{

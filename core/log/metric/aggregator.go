@@ -2,6 +2,7 @@ package metric
 
 import (
 	"sort"
+	"strconv"
 	"sync"
 	"time"
 
@@ -78,6 +79,9 @@ func writeTaskLoop() {
 				if err != nil {
 					logger.Errorf("[MetricAggregatorTask] Write metric error: %+v", err)
 				}
+
+				//add metric to prometheus
+				processPromMetric(m[t])
 			}
 		}
 	}
@@ -142,4 +146,16 @@ func currentMetricItems(retriever base.MetricItemRetriever, currentTime uint64) 
 		m[item.Timestamp] = item
 	}
 	return m
+}
+
+func processPromMetric(metrics []*base.MetricItem) {
+	for _, item := range metrics {
+		base.PromMetricPassQpsItem.WithLabelValues(item.Resource, strconv.Itoa(int(item.Classification)), strconv.FormatInt(int64(item.Timestamp), 10)).Set(float64(item.PassQps))
+		base.PromMetricAvgRtItem.WithLabelValues(item.Resource, strconv.Itoa(int(item.Classification)), strconv.FormatInt(int64(item.Timestamp), 10)).Set(float64(item.AvgRt))
+		base.PromMetricBlockQpsItem.WithLabelValues(item.Resource, strconv.Itoa(int(item.Classification)), strconv.FormatInt(int64(item.Timestamp), 10)).Set(float64(item.BlockQps))
+		base.PromMetricCompleteQpsItem.WithLabelValues(item.Resource, strconv.Itoa(int(item.Classification)), strconv.FormatInt(int64(item.Timestamp), 10)).Set(float64(item.CompleteQps))
+		base.PromMetricConcurrencyItem.WithLabelValues(item.Resource, strconv.Itoa(int(item.Classification)), strconv.FormatInt(int64(item.Timestamp), 10)).Set(float64(item.Concurrency))
+		base.PromMetricErrorQpsItem.WithLabelValues(item.Resource, strconv.Itoa(int(item.Classification)), strconv.FormatInt(int64(item.Timestamp), 10)).Set(float64(item.ErrorQps))
+		base.PromMetricOccupiedPassQpsItem.WithLabelValues(item.Resource, strconv.Itoa(int(item.Classification)), strconv.FormatInt(int64(item.Timestamp), 10)).Set(float64(item.OccupiedPassQps))
+	}
 }

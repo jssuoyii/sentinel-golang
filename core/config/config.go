@@ -184,3 +184,11 @@ func SystemStatCollectIntervalMs() uint32 {
 func UseCacheTime() bool {
 	return globalCfg.Sentinel.UseCacheTime
 }
+
+func PromMetricNamespace() string {
+	return globalCfg.Sentinel.Log.PrometheusMetric.Namespace
+}
+
+func PromMetricSubsystem() string {
+	return globalCfg.Sentinel.Log.PrometheusMetric.Subsystem
+}

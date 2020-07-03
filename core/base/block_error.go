@@ -45,5 +45,17 @@ func NewBlockErrorWithCause(blockType BlockType, blockMsg string, rule SentinelR
 }
 
 func (e *BlockError) Error() string {
-	return "SentinelBlockException: " + e.blockMsg + " TriggeredRule:" + e.TriggeredRule().String() + " TriggeredValue:" + util.ToString(e.TriggeredValue())
+	var (
+		triggeredRule  string
+		triggeredValue string
+	)
+
+	if e.TriggeredRule() != nil {
+		triggeredRule = e.TriggeredRule().String()
+	}
+
+	if e.TriggeredValue() != nil {
+		triggeredValue = util.ToString(e.TriggeredValue())
+	}
+	return "SentinelBlockException: " + e.blockMsg + " TriggeredRule:" + triggeredRule + " TriggeredRule:" + triggeredValue
 }

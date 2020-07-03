@@ -1,5 +1,7 @@
 package base
 
+import "github.com/alibaba/sentinel-golang/util"
+
 // BlockError indicates the request was blocked by Sentinel.
 type BlockError struct {
 	blockType BlockType
@@ -43,5 +45,5 @@ func NewBlockErrorWithCause(blockType BlockType, blockMsg string, rule SentinelR
 }
 
 func (e *BlockError) Error() string {
-	return "SentinelBlockException: " + e.blockMsg
+	return "SentinelBlockException: " + e.blockMsg + " TriggeredRule:" + e.TriggeredRule().String() + " TriggeredValue:" + util.ToString(e.TriggeredValue())
 }

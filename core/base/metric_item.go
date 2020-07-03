@@ -32,28 +32,28 @@ var (
 	PromMetricPassQpsItem = prometheus.NewGaugeVec(prometheus.GaugeOpts{
 		Namespace: config.PromMetricNamespace(),
 		Subsystem: config.PromMetricSubsystem(),
-		Name:      config.AppName(),
+		Name:      "PassQps",
 		Help:      "the sentinel PassQps stat data of running time",
 	}, []string{"Resource", "Classification", "Timestamp"})
 
 	PromMetricBlockQpsItem = prometheus.NewGaugeVec(prometheus.GaugeOpts{
 		Namespace: config.PromMetricNamespace(),
 		Subsystem: config.PromMetricSubsystem(),
-		Name:      config.AppName(),
+		Name:      "BlockQps",
 		Help:      "the sentinel BlockQps stat data of running time",
 	}, []string{"Resource", "Classification", "Timestamp"})
 
 	PromMetricCompleteQpsItem = prometheus.NewGaugeVec(prometheus.GaugeOpts{
 		Namespace: config.PromMetricNamespace(),
 		Subsystem: config.PromMetricSubsystem(),
-		Name:      config.AppName(),
+		Name:      "CompleteQps",
 		Help:      "the sentinel CompleteQps stat data of running time",
 	}, []string{"Resource", "Classification", "Timestamp"})
 
 	PromMetricErrorQpsItem = prometheus.NewGaugeVec(prometheus.GaugeOpts{
 		Namespace: config.PromMetricNamespace(),
 		Subsystem: config.PromMetricSubsystem(),
-		Name:      config.AppName(),
+		Name:      "ErrorQps",
 		Help:      "the sentinel ErrorQps stat data of running time",
 	}, []string{"Resource", "Classification", "Timestamp"})
 
@@ -61,21 +61,21 @@ var (
 	PromMetricAvgRtItem = prometheus.NewGaugeVec(prometheus.GaugeOpts{
 		Namespace: config.PromMetricNamespace(),
 		Subsystem: config.PromMetricSubsystem(),
-		Name:      config.AppName(),
+		Name:      "AvgRt",
 		Help:      "the sentinel AvgRt stat data of running time",
 	}, []string{"Resource", "Classification", "Timestamp"})
 
 	PromMetricOccupiedPassQpsItem = prometheus.NewGaugeVec(prometheus.GaugeOpts{
 		Namespace: config.PromMetricNamespace(),
 		Subsystem: config.PromMetricSubsystem(),
-		Name:      config.AppName(),
+		Name:      "OccupiedPassQps",
 		Help:      "the sentinel OccupiedPassQps stat data of running time",
 	}, []string{"Resource", "Classification", "Timestamp"})
 
 	PromMetricConcurrencyItem = prometheus.NewGaugeVec(prometheus.GaugeOpts{
 		Namespace: config.PromMetricNamespace(),
 		Subsystem: config.PromMetricSubsystem(),
-		Name:      config.AppName(),
+		Name:      "Concurrency",
 		Help:      "the sentinel Concurrency stat data of running time",
 	}, []string{"Resource", "Classification", "Timestamp"})
 )
